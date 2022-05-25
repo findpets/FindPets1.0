@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+      <ion-title>FindPets</ion-title>
+
+    </ion-buttons>
+
+    
+
+  
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row></ion-row>
+  <ion-row></ion-row> 
+  <div class="ion-text-center">
+    <ion-card>
+      <ion-row></ion-row>
+      <ion-card-header>
+        <ion-card-subtitle>¿Estás pensando en adoptar?</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+      Aquí podrás ver las mascotas disponibles para adoptar.
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+<ion-slides [options]="option" class="ion-margin-top">
+      
+  <ion-slide>
+    <ion-card>
+      <img src="assets/img/cat1.jpg" >
+      <ion-text>Me llamo Toby y tengo 6 meses </ion-text>
+    </ion-card>
+  </ion-slide>
+
+  <ion-slide>
+    <ion-card>
+      <img src="assets/img/cat2.jpg">
+      <ion-text>Me llamo Lucas y tengo 10 meses </ion-text>
+    </ion-card>
+  </ion-slide>
+
+  <ion-slide>
+    <ion-card>
+      <img src="assets/img/dog1.jpg">
+      <ion-text>Me llamo Domi y tengo 8 meses </ion-text>
+    </ion-card>
+  </ion-slide>
+
+  <ion-slide>
+    <ion-card>
+      <img src="assets/img/dog2.jpg">
+      <ion-text>Me llamo Kobi y tengo 4 años </ion-text>
+    </ion-card>
+  </ion-slide>
+
+</ion-slides>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed"> 
+  <ion-fab-button (click)="addUser()">
+    <ion-icon name="logo-octocat"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-fab vertical="bottom" horizontal="start" slot="fixed"> 
+  <ion-fab-button  (click)="volver()" >
+    <ion-icon name="arrow-undo-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+</ion-content>
+
+

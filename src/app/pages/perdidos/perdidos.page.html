@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+       
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Historial Perdidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="preview">
+    <ion-avatar (click)="changeImage()">
+      <img *ngIf="profile?.imageUrl; else placeholder_avatar;" [src]="profile.imageUrl">
+      <ng-template #placeholder_avatar>
+        <div class="fallback">
+          <p>Subir Foto</p>
+        </div>
+      </ng-template>
+    </ion-avatar>
+
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let find of perdidos" (click)="openNote(note)">
+      <ion-label>
+        Nombre: {{ find.nameM }}
+        <br>
+        color : {{ find.color }}
+        <!--
+          <br>
+        ID: {{ note.id }}-->
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+
+
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed"> 
+    <ion-fab-button (click)="addFind()">
+      <ion-icon name="heart-dislike-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed"> 
+    <ion-fab-button  (click)="volver()" >
+      <ion-icon name="arrow-undo-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+</ion-content>

@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title size="large">FindPet</ion-title>
+   </ion-toolbar>
+ </ion-header>
+ <ion-content >
+   <div id="somos">
+     <ion-card>
+       <ion-card-header>
+        <ion-item>
+          <ion-avatar>
+            <img src="../assets/img/avatar.png">
+          </ion-avatar>
+        </ion-item>
+          
+          
+       </ion-card-header>
+       <ion-card-content>
+         <ul>
+           <li>Nombre Completo: Valentina Corales</li>
+           <li>Edad: 26 años</li>
+         </ul>
+       </ion-card-content>
+     </ion-card>
+   </div>
+   
+   <ion-card>
+     <ion-card-header>
+       <ion-card-subtitle>
+         Contacto 
+       </ion-card-subtitle> 
+     </ion-card-header>
+     <ion-card-content >
+       <ul>
+         <li>Numero: +56987696305</li>
+         <li>Email: valec@duocuc.cl</li>
+       </ul>
+     </ion-card-content>
+   </ion-card>
+   <ion-row></ion-row>
+   <ion-row></ion-row>
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed"> 
+    <ion-fab-button (click)="addProfile()">
+      <ion-icon name="people-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+   <ion-fab vertical="bottom" horizontal="start" slot="fixed"> 
+    <ion-fab-button  (click)="volver()" >
+      <ion-icon name="arrow-undo-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+ 
+ </ion-content>
+ 

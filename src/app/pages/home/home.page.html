@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+      <ion-title>FindPets</ion-title>
+ 
+        <ion-button (click)="perfil()">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </ion-button>
+      
+ 
+    </ion-buttons>
+   
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+ 
+  <ion-card>
+    
+    <ion-card-header>
+      <ion-card-subtitle>¿Quiénes Somos?</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+   Nuestra misión en FindPets es ayudar a la comunidad y a los animales. Aquí podrás adoptar una mascota, encontrarla o reportarla en caso de que se haya perdido.
+    </ion-card-content>
+ 
+  </ion-card>
+
+  <ion-card >
+    <ion-card-content >
+      Conoce más sobre la fundación
+     
+        <img alt="" src="assets/img/instagram.svg"
+        width="30" height="30">
+        
+      
+   
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-label class="ion-text-center">
+    <h2>¿Empezamos?</h2>
+  </ion-label>
+  <div id="content" class="ion-text-center">
+  
+    <ion-button color="secondary" expand="block" class="btn btn1" (click)="adoptar()">
+      <ion-icon name="paw-outline"></ion-icon> Adoptar
+      </ion-button>
+
+    <ion-button color="secondary" expand="block" class="btn btn1" (click)="perdido()">
+      <ion-icon name="heart-half-outline"></ion-icon>Perdido</ion-button>
+  </div>
+
+</ion-content>
