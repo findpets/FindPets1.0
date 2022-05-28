@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { DataService } from '../../service/data.service';
 import { NavigationExtras, Router} from '@angular/router';
@@ -12,12 +12,13 @@ import { AuthService } from '../../service/auth.service';
 })
 export class AdoptamePage {
 
+  @Input() isSolicitar:boolean;
   users = [];
 
   constructor(private dataService : DataService ,
-               private alertCtrl : AlertController,
                private router: Router,
                private authService: AuthService,
+               private alertController:AlertController
                ) 
                
   {
@@ -47,7 +48,7 @@ export class AdoptamePage {
     this.router.navigateByUrl('/', {replaceUrl:true});}
 
 async addUser(){
-  const alert = await this.alertCtrl.create({
+  const alert = await this.alertController.create({
     header :'Formulario de Adopción',
     inputs: [
       {
@@ -122,6 +123,8 @@ async addUser(){
     ]
   });
   await alert.present();
+  this.isSolicitar=true;
+  this.enviarCorreo();
 }
 
 option ={
@@ -132,6 +135,22 @@ option ={
   autoplay: true, 
 
 }
+
+
+cancelar(){
+  this.isSolicitar=false;
+}
+enviarCorreo(){
+  var feedback = document.createElement('a');
+  feedback.setAttribute('href',
+//cambiar mail de prueba!!!!!!!! nan.bernal@profesor.duoc.cl
+  'mailto:gabydalgo@gmail.com?subject=Detalles%20del%20viaje&cc=g.hidalgo@duocuc.cl&body=Tu%20viaje%20ha%20sido%20notificado.'
+  +'%20Destino:%20'
+
+  );
+  feedback.click();
+  console.log('mail enviado');
+} 
 
 
 }

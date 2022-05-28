@@ -39,6 +39,10 @@ const routes: Routes = [
     redirectTo: '',
     pathMatch: 'full'
   },
+  {
+    path: 'foto-perdidos',
+    loadChildren: () => import('./pages/foto-perdidos/foto-perdidos.module').then( m => m.FotoPerdidosPageModule)
+  },
 
 ];
 

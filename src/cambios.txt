@@ -26,3 +26,13 @@ npm install cordova-plugin-statusbar
 npm install @awesome-cordova-plugins/status-bar 
 npm install cordova-plugin-splashscreen 
 npm install @awesome-cordova-plugins/splash-screen 
+//////////
+mapa
+npm install cordova-plugin-geolocation 
+npm install @awesome-cordova-plugins/geolocation 
+npm install @ionic-native/google-maps
+ionic cap sync
+index.html   
+  <!-- Google Maps Script-->
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU7l_YBlNYH8v84vn_Hp3mvh5kWGYF9f8"> </script>
+perdidos.ts ---import

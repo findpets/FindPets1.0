@@ -24,6 +24,9 @@ import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
+import { Geolocation} from '@awesome-cordova-plugins/geolocation/ngx';
+import { GoogleMap } from '@capacitor/google-maps';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,7 +47,9 @@ import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
     provideMessaging(() => getMessaging()), 
     providePerformance(() => getPerformance()), 
     provideRemoteConfig(() => getRemoteConfig()), 
-    provideStorage(() => getStorage())],
+    provideStorage(() => getStorage()),
+  
+  ],
 
   providers: [{
     provide: RouteReuseStrategy, 
@@ -53,6 +58,9 @@ import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
     UserTrackingService,
     StatusBar,
     SplashScreen,
+    Geolocation,
+  
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],
 })
