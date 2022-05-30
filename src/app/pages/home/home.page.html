@@ -4,9 +4,8 @@
       <ion-button (click)="logout()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
-      <ion-title>FindPets</ion-title>
- 
-        <ion-button (click)="perfil()">
+
+        <ion-button #perfil (click)="perfil()">
           <ion-icon name="person-circle-outline"></ion-icon>
         </ion-button>
     </ion-buttons>
