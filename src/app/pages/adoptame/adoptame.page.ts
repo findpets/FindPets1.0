@@ -14,6 +14,8 @@ export class AdoptamePage {
 
   @Input() isSolicitar:boolean;
   users = [];
+  contacto: any = {
+    telefono:''};
 
   constructor(private dataService : DataService ,
                private router: Router,
@@ -113,6 +115,7 @@ async addUser(){
 }
 
 async confirmar(){
+  localStorage.setItem('telefono',this.contacto.telefono);
     const alert = await this.alertController.create({
     message: 'Se ha enviado tu solicitud!',
     buttons: [{
@@ -134,12 +137,14 @@ option ={
 cancelar(){
   this.isSolicitar=false;
 }
+
 enviarCorreo(){
+  
   var feedback = document.createElement('a');
   feedback.setAttribute('href',
-//cambiar mail de prueba!!!!!!!! nan.bernal@profesor.duoc.cl
-  'mailto:Findpets.fundacion@gmail.com?subject=Detalles%20del%20viaje&cc=g.hidalgo@duocuc.cl&body=Tu%20viaje%20ha%20sido%20notificado.'
-  +'%20Destino:%20'
+//cambiar mail de prueba!!!!!!!! 
+  'mailto:Findpets.fundacion@gmail.com?subject=Solcitud%20%20adopción&cc=g.hidalgo@duocuc.cl&body=Solcitud%de%20adopción.'
+  +'%20Contacto:%20'+ localStorage.getItem(this.contacto.telefono)
 
   );
   feedback.click();

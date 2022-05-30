@@ -35,14 +35,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
+    path: 'foto-perdidos',
+    loadChildren: () => import('./pages/foto-perdidos/foto-perdidos.module').then( m => m.FotoPerdidosPageModule)
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full'
   },
-  {
-    path: 'foto-perdidos',
-    loadChildren: () => import('./pages/foto-perdidos/foto-perdidos.module').then( m => m.FotoPerdidosPageModule)
-  },
+
 
 ];
 

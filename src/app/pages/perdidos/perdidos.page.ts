@@ -57,6 +57,13 @@ export class PerdidosPage  {
     this.router.navigate(['../home'], navigationExtras);
   }
 
+  historial(){
+    let navigationExtras: NavigationExtras={
+    
+    }
+    this.router.navigate(['../foto-perdidos'], navigationExtras);
+  }
+  
   async addFind(){
     const alert = await this.alertController.create({
       header :'Ingrese animal perdido',

@@ -1,16 +1,21 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="logout()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
-       
       </ion-button>
     </ion-buttons>
-
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-row>
+    <ion-col col-6>
+      <ion-button  (click)="historial()">Historial</ion-button>
+    </ion-col>
+    </ion-row>
+
+  
   <div class="preview">
     <ion-avatar (click)="changeImage()">
       <img *ngIf="profile?.imageUrl; else placeholder_avatar;" [src]="profile.imageUrl">
@@ -21,35 +26,21 @@
       </ng-template>
     </ion-avatar>
   </div>
-</ion-content>
-
-<ion-content >
+  <form>
+    <div class="form-group input-group">
+        <input type="text" id="search_location" class="form-control" placeholder="Search location">
+        <div class="input-group-btn">
+            <button class="btn btn-default get_map" type="submit">
+                Locate
+            </button>
+        </div>
+    </div>
+    </form>
   <div #mapa id="mapa">
     <map></map>
 </div>
 
-<ion-row>
-<ion-col col-6>
-  <ion-button [hidden]= "isSolicitar"  block primary color="dark" (click)="confirmar()">Ingresar</ion-button>
-  <ion-button [hidden]= "!isSolicitar" block secondary color="dark" (click)="cancelar()">Cancelar</ion-button>
-</ion-col>
-</ion-row>
 </ion-content>
-
-  <ion-list>
-    <ion-item *ngFor="let find of perdidos" (click)="openNote(note)">
-      <ion-label>
-        Nombre: {{ find.nameM }}
-        <br>
-        color : {{ find.color }}
-        <!--
-          <br>
-        ID: {{ note.id }}-->
-      </ion-label>
-    </ion-item>
-  </ion-list>
-
-
 
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed"> 
