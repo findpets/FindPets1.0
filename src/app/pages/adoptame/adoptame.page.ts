@@ -62,16 +62,6 @@ async addUser(){
         type:'text'
       },
       {
-        name : 'estadoC',
-        placeholder: 'Estado Civil',
-        type:'text'
-      },
-      {
-        name : 'ocupacion',
-        placeholder: 'Ocupación',
-        type:'text'
-      },
-      {
         name : 'direccion',
         placeholder: 'Dirección',
         type:'text'
@@ -83,14 +73,10 @@ async addUser(){
       },
       {
         name : 'permiso',
-        placeholder: 'En caso de arriendo, ¿tiene permiso SÍ/NO? ',
+        placeholder: 'En caso de arriendo, ¿Tiene permiso SÍ/NO? ',
         type:'text'
       },
-      {
-        name : 'integrantesHogar',
-        placeholder: 'Número integrantes del hogar',
-        type:'text'
-      },
+  
       {
         name : 'telefono',
         placeholder: 'Número de Contacto',
@@ -115,16 +101,25 @@ async addUser(){
       {
         text: 'Agregar',
         handler: (res) => {
-          this.dataService.addUser({nameC: res.nameC , rut : res.rut ,estadoC :res.estadoC, ocupacion : res.ocupacion ,
-            direccion:res.direccion,tipocasa: res.tipocasa,permiso: res.permiso,integrantesHogar: res.integrantesHogar,
-            telefono:res.telefono,email:res.email, mascota : res.mascota })
+          this.dataService.addUser({nameC: res.nameC , rut : res.rut ,  direccion:res.direccion,tipocasa: res.tipocasa,permiso: res.permiso, telefono:res.telefono,email:res.email, mascota : res.mascota })
+            this.enviarCorreo();
+            this.confirmar();
         }
       }
     ]
   });
   await alert.present();
-  this.isSolicitar=true;
-  this.enviarCorreo();
+ 
+}
+
+async confirmar(){
+    const alert = await this.alertController.create({
+    message: 'Se ha enviado tu solicitud!',
+    buttons: [{
+      text: 'Aceptar'       
+    }]
+  });
+  await alert.present();
 }
 
 option ={
@@ -136,7 +131,6 @@ option ={
 
 }
 
-
 cancelar(){
   this.isSolicitar=false;
 }
@@ -144,7 +138,7 @@ enviarCorreo(){
   var feedback = document.createElement('a');
   feedback.setAttribute('href',
 //cambiar mail de prueba!!!!!!!! nan.bernal@profesor.duoc.cl
-  'mailto:gabydalgo@gmail.com?subject=Detalles%20del%20viaje&cc=g.hidalgo@duocuc.cl&body=Tu%20viaje%20ha%20sido%20notificado.'
+  'mailto:Findpets.fundacion@gmail.com?subject=Detalles%20del%20viaje&cc=g.hidalgo@duocuc.cl&body=Tu%20viaje%20ha%20sido%20notificado.'
   +'%20Destino:%20'
 
   );

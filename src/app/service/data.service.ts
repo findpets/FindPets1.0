@@ -8,12 +8,11 @@ export interface Usuario
    id?: string;
    nameC : string ;
    rut : string;
-   estadoC : string;
-   ocupacion : string;
+  
    direccion: string;
    tipocasa: string;
    permiso: string;
-   integrantesHogar : string;
+
    telefono: string;
    email: string;
    mascota : string;
@@ -70,8 +69,8 @@ export class DataService {
   updateUser(user:Usuario){
     const usuaDocRef = doc(this.firestore,`users/${user.id}` );
     return updateDoc(usuaDocRef , 
-      {name : user.nameC, rut : user.rut ,estadoC : user.estadoC, ocupacion : user.ocupacion ,direccion : user.direccion ,
-        tipocasa : user.tipocasa ,permiso: user.permiso , integrantesHogar: user.integrantesHogar,
+      {name : user.nameC, rut : user.rut  ,direccion : user.direccion ,
+        tipocasa : user.tipocasa ,permiso: user.permiso ,
         telefono : user.telefono, email : user.email,mascota : user.mascota,})
   }
  
