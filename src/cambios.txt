@@ -36,3 +36,6 @@ index.html
   <!-- Google Maps Script-->
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU7l_YBlNYH8v84vn_Hp3mvh5kWGYF9f8"> </script>
 perdidos.ts ---import
+
+ npm install cordova-plugin-nativegeocoder 
+ npm install @awesome-cordova-plugins/native-geocoder 

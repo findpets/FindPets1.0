@@ -24,8 +24,10 @@ import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
+
+import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
 import { Geolocation} from '@awesome-cordova-plugins/geolocation/ngx';
-import { GoogleMap } from '@capacitor/google-maps';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 
 @NgModule({
@@ -59,7 +61,8 @@ import { GoogleMap } from '@capacitor/google-maps';
     StatusBar,
     SplashScreen,
     Geolocation,
-  
+    NativeGeocoder,
+    GoogleMaps,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

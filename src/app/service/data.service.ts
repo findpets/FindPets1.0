@@ -24,7 +24,7 @@ export interface Perdidos{
   tipoM : string;
   color: string;
   tamano: string;
-  direccion: string;
+  direccion: any;
   fecha: string;
 }
 
