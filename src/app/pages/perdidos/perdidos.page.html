@@ -9,20 +9,25 @@
 </ion-header>
 
 <ion-content>
-  
 <ion-toolbar>
   <ion-row>
+
     <ion-col col-6>
-      <ion-button  (click)="historial()">Historial</ion-button>
+      <ion-button  (click)="historial()" shape="round" fill="outline">
+        <ion-icon slot="start" name="eye-outline"></ion-icon>
+      </ion-button>    
     </ion-col>
+
       <ion-col col-6>
           <ion-button (click)="loadMap()" shape="round" fill="outline">
             <ion-icon slot="start" name="locate"></ion-icon>
             </ion-button>
       </ion-col>
+
       </ion-row>
     </ion-toolbar>
-  
+
+   
     <ion-toolbar >
       <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="UpdateSearchResults()" placeholder="Search for a place"  (ionClear)="ClearAutocomplete()"></ion-searchbar>
     </ion-toolbar>

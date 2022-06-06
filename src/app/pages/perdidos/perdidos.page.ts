@@ -81,7 +81,7 @@ export class PerdidosPage implements OnInit  {
   
   async addFind(){
     const alert = await this.alertController.create({
-      header :'Ingrese animal perdido',
+      header :'Ingrese Mascota Extraviada',
       inputs: [
         {
           name : 'nameM',
@@ -103,7 +103,6 @@ export class PerdidosPage implements OnInit  {
           placeholder: 'Ingrese Tamaño de la mascota',
           type:'text'
         },
-
         {
           name : 'fecha',
           placeholder: 'Ingrese fecha en la que se perdió',
@@ -119,7 +118,7 @@ export class PerdidosPage implements OnInit  {
           text: 'Agregar',
           handler: (res) => {
             this.dataService.addFind({nameM : res.nameM,tipoM : res.tipoM , color: res.color,
-            tamano :res.tamano,direccion: this.placeid ,fecha: res.fecha })
+            tamano :res.tamano, direccion: this.placeid,fecha: res.fecha })
           
           }
         }
@@ -190,13 +189,13 @@ this.geolocation.getCurrentPosition().then((resp) => {
 }
 
 
-getAddressFromCoords(lattitude, longitude) {
-console.log("getAddressFromCoords "+lattitude+" "+longitude);
+getAddressFromCoords(latitude, longitude) {
+console.log("getAddressFromCoords "+latitude+" "+longitude);
 let options: NativeGeocoderOptions = {
   useLocale: true,
   maxResults: 5    
 }; 
-this.nativeGeocoder.reverseGeocode(lattitude, longitude, options)
+this.nativeGeocoder.reverseGeocode(latitude, longitude, options)
   .then((result: NativeGeocoderResult[]) => {
     this.address = "";
     let responseAddress = [];
@@ -243,13 +242,15 @@ SelectSearchResult(item) {
 //HE AÑADIDO UN ALERT PARA VER EL CONTENIDO QUE NOS OFRECE GOOGLE Y GUARDAMOS EL PLACEID PARA UTILIZARLO POSTERIORMENTE SI QUEREMOS.  
 alert(JSON.stringify(item))  
 
-this.placeid = item.place_id
-this.map.addListener('click', () => {
+this.placeid = item.description
+
+this.map.addListener('tilesloaded', () => {
   console.log('accuracy',this.map, this.map.center.lat());
   this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
   this.lat = this.map.center.lat()
   this.long = this.map.center.lng()
 }); 
+
 }
 
 

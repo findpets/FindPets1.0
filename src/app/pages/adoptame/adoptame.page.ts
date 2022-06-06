@@ -144,7 +144,7 @@ enviarCorreo(){
   feedback.setAttribute('href',
 //cambiar mail de prueba!!!!!!!! 
   'mailto:Findpets.fundacion@gmail.com?subject=Solcitud%20%20adopción&cc=g.hidalgo@duocuc.cl&body=Solcitud%de%20adopción.'
-  +'%20Contacto:%20'
+  +'%20Contacto:%20' + this.contacto.telefono
   //+ localStorage.getItem(this.contacto.telefono)
 
   );
