@@ -16,22 +16,14 @@
    
     <ion-list>
       <ion-item *ngFor="let find of perdidos" (click)="openNote(note)">
-
+        <ion-item *ngFor ="let file of images">
         <ion-label>
         
        
-  <h3 *ngIf ="images.lenght == 0" class="ion-padding ion-text-center"> selecciona imagen</h3>
-  <ion-list>
-    <ion-item *ngFor ="let file of images">
-      <ion-thumbnail>
-        <ion-img [src] ="file.data"></ion-img>
-      </ion-thumbnail>
-  <ion-label class ="ion-text-wrap">
-  {{file.name}}
-  </ion-label>
-    </ion-item>
-  </ion-list>
+  {{file.data}}
    
+
+  
           <br>
           Nombre: {{ find.nameM }}
           <br>
@@ -41,6 +33,7 @@
           <br>
           
         </ion-label>
+      </ion-item>
       </ion-item>
     </ion-list>
   </ion-col>
