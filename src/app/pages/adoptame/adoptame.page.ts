@@ -104,8 +104,9 @@ async addUser(){
         text: 'Agregar',
         handler: (res) => {
           this.dataService.addUser({nameC: res.nameC , rut : res.rut ,  direccion:res.direccion,tipocasa: res.tipocasa,permiso: res.permiso, telefono:res.telefono,email:res.email, mascota : res.mascota })
-            this.enviarCorreo();
+           
             this.confirmar();
+            this.enviarCorreo();
         }
       }
     ]
@@ -142,10 +143,9 @@ enviarCorreo(){
   
   var feedback = document.createElement('a');
   feedback.setAttribute('href',
-//cambiar mail de prueba!!!!!!!! 
-  'mailto:Findpets.fundacion@gmail.com?subject=Solcitud%20%20adopción&cc=g.hidalgo@duocuc.cl&body=Solcitud%de%20adopción.'
-  +'%20Contacto:%20' + this.contacto.telefono
-  //+ localStorage.getItem(this.contacto.telefono)
+
+  'mailto:findpets.fundacion@gmail.com?subject=Solicitud%20%20adopción&cc=g.hidalgo@duocuc.cl&body=Solcitud%de%20adopción.'
+  +'%20Contacto:%20' + localStorage.getItem(this.contacto.telefono)
 
   );
   feedback.click();

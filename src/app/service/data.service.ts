@@ -26,7 +26,12 @@ export interface Perdidos{
   tamano: string;
   direccion: any;
   fecha: string;
+  name: any;
+  path: any;
+  data: any;
+
 }
+
 
 export interface Perfil{
   id?: string;
@@ -101,7 +106,7 @@ updateFind(find:Perdidos){
   const findDocRef = doc(this.firestore,`perdidos/${find.id}` );
   return updateDoc(findDocRef , 
     {nameM : find.nameM, tipoM : find.tipoM, color : find.color , tamano : find.tamano ,
-      direccion : find.direccion , fecha : find.fecha })
+      direccion : find.direccion , fecha : find.fecha, name: find.name, path: find.path, data: find.data})
 }
 
 // AQUI SE AGREGA TODO LO DE PERFIL

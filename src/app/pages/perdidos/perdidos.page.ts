@@ -1,16 +1,23 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { AlertController ,LoadingController } from '@ionic/angular';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { AlertController ,LoadingController, Platform, ToastController } from '@ionic/angular';
 import { AuthService } from '../../service/auth.service';
 import { AvatarService } from '../../service/avatar.service';
-import { DataService } from '../../service/data.service';
+import { DataService} from '../../service/data.service';
 import { Geolocation} from '@awesome-cordova-plugins/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@awesome-cordova-plugins/native-geocoder/ngx';
+import { Directory, Filesystem } from '@capacitor/filesystem';
 
 
 declare var google: any;
+const IMAGE_DIR = 'upload';
 
+interface Perdidos{
+  name:string;
+  path: string;
+  data: string;
+}
 
 @Component({
   selector: 'app-perdidos',
@@ -23,6 +30,8 @@ export class PerdidosPage implements OnInit  {
   perdidos = [];
   profile = null;
  
+  images: Perdidos[] = [];
+
 
   @ViewChild('map',{static:false}) mapElement:ElementRef;
 
@@ -36,6 +45,7 @@ export class PerdidosPage implements OnInit  {
   placeid: any;
   GoogleAutocomplete: any;  
 
+
   constructor(
     private avatarService: AvatarService,
     private authService: AuthService,
@@ -46,6 +56,8 @@ export class PerdidosPage implements OnInit  {
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,    
     public zone: NgZone,
+    public toastController: ToastController,
+    private platform : Platform,
   ) 
   {
     this.avatarService.getUserProfile().subscribe((data => {
@@ -62,7 +74,9 @@ export class PerdidosPage implements OnInit  {
 
   ngOnInit(){
     this.loadMap();
-   // this.geolocationNative();
+    this.loadFiles()
+
+  
   }
 
   volver(){
@@ -79,6 +93,109 @@ export class PerdidosPage implements OnInit  {
     this.router.navigate(['../foto-perdidos'], navigationExtras);
   }
   
+  //foto mascota perdida
+  
+async loadFiles(){
+  this.images=[];
+
+  const loading = await this.loadingController.create({
+    message:'Cargando...'
+  });
+  await loading.present();
+
+  Filesystem.readdir({
+    directory: Directory.Data,
+    path: IMAGE_DIR
+  }).then(result =>{
+
+  console.log('HERE: ', result);
+  this.loadFileData(result.files);
+
+  }, async err =>{
+    console.log('err: ', err);
+    await Filesystem.mkdir({
+      directory: Directory.Data,
+      path: IMAGE_DIR
+    });
+  }).then (_ =>{
+      loading.dismiss();
+    })
+
+}
+
+async loadFileData(fileNames: string[]){
+   for (let file of fileNames){
+     const filePath = `${IMAGE_DIR}/${file}`;
+
+     const readFile = await Filesystem.readFile({
+       directory: Directory.Data,
+       path: filePath
+     });
+
+     this.images.push({
+       name: file,
+       path: filePath,
+       data: `data:image/jpeg;base64,${readFile.data}`
+     });
+ 
+   }
+}
+async selectImage(){
+  const image = await Camera.getPhoto({
+    quality:90,
+    allowEditing: false,
+    resultType: CameraResultType.Uri,
+    source: CameraSource.Photos,  //.Camera  para tomar fotos
+  });
+  console.log(image); //para ver si carga la img
+
+  if (image){
+    this.saveImage(image);
+  }
+}
+
+async saveImage(photo:Photo){
+
+const base64Data = await this.readAsBase64(photo);
+console.log(base64Data);
+const fileName = new Date().getTime() + '.jpeg';
+const savedFile = await Filesystem.writeFile({
+  directory: Directory.Data,
+  path: `${IMAGE_DIR}/${fileName}`,
+  data: base64Data,
+});
+console.log('saved: ', savedFile);
+this.loadFiles();
+}
+
+async readAsBase64(photo: Photo) {
+
+if (this.platform.is('hybrid')) {
+  const file = await Filesystem.readFile({
+    path: photo.path
+  });
+
+  return file.data;
+}
+else {
+  const response = await fetch(photo.webPath);
+  const blob = await response.blob();
+
+  return await this.convertBlobToBase64(blob) as string;
+}
+}
+
+convertBlobToBase64 = (blob: Blob) => new Promise((resolve, reject) => {
+const reader = new FileReader();
+reader.onerror = reject;
+reader.onload = () => {
+    resolve(reader.result);
+};
+reader.readAsDataURL(blob);
+});
+
+
+  //formulario
   async addFind(){
     const alert = await this.alertController.create({
       header :'Ingrese Mascota Extraviada',
@@ -106,7 +223,7 @@ export class PerdidosPage implements OnInit  {
         {
           name : 'fecha',
           placeholder: 'Ingrese fecha en la que se perdió',
-          type:'text'
+          type:'date'
         }
       ],
       buttons:[
@@ -118,7 +235,7 @@ export class PerdidosPage implements OnInit  {
           text: 'Agregar',
           handler: (res) => {
             this.dataService.addFind({nameM : res.nameM,tipoM : res.tipoM , color: res.color,
-            tamano :res.tamano, direccion: this.placeid,fecha: res.fecha })
+            tamano :res.tamano, direccion: this.placeid, fecha: res.fecha, name:this.images ,path: this.images, data:this.images})
           
           }
         }
@@ -126,43 +243,15 @@ export class PerdidosPage implements OnInit  {
     });
     await alert.present();
   }
+  
 //
 async logout(){
   await this.authService.logout();
   this.router.navigateByUrl('/home', {replaceUrl:true});
 }
-  async changeImage(){
-    const image = await Camera.getPhoto({
-      quality:90,
-      allowEditing: false,
-      resultType: CameraResultType.Base64,
-      source: CameraSource.Photos, 
-    });
-    console.log(image); //para ver si carga la img
-    if (image){
-      const loading = await this.loadingController.create();
-      await loading.present();
 
-      const result = await this.avatarService.uploadImage(image);
-      loading.dismiss();
-
-      if(!result){
-        const alert = await this.alertController.create({
-          header: 'No se pudo subir la imagen',
-          message: 'Hubo un problema',
-          buttons: ['Aceptar'],
-        });
-        await alert.present();
-      }
-    }
-  }
-
-  
 //mostrar google map
  
-
-
-  //CARGAR EL MAPA TIENE DOS PARTES 
   loadMap() {
     
 this.geolocation.getCurrentPosition().then((resp) => {
@@ -238,9 +327,6 @@ this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
 
 //FUNCION QUE LLAMAMOS DESDE EL ITEM DE LA LISTA.
 SelectSearchResult(item) {
-//AQUI PONDREMOS LO QUE QUERAMOS QUE PASE CON EL PLACE ESCOGIDO, GUARDARLO, SUBIRLO A FIRESTORE.
-//HE AÑADIDO UN ALERT PARA VER EL CONTENIDO QUE NOS OFRECE GOOGLE Y GUARDAMOS EL PLACEID PARA UTILIZARLO POSTERIORMENTE SI QUEREMOS.  
-alert(JSON.stringify(item))  
 
 this.placeid = item.description
 

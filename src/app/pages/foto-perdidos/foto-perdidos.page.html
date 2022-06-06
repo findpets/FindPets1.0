@@ -9,16 +9,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="preview">
-    <ion-avatar (click)="changeImage()">
-      <img *ngIf="profile?.imageUrl; else placeholder_avatar;" [src]="profile.imageUrl">
-      <ng-template #placeholder_avatar>
-        <div class="fallback">
-          <p>Subir Foto</p>
-        </div>
-      </ng-template>
-    </ion-avatar>
-  </div>
+
 
   <ion-row>
   <ion-col col-6>
@@ -27,6 +18,21 @@
       <ion-item *ngFor="let find of perdidos" (click)="openNote(note)">
 
         <ion-label>
+        
+       
+  <h3 *ngIf ="images.lenght == 0" class="ion-padding ion-text-center"> selecciona imagen</h3>
+  <ion-list>
+    <ion-item *ngFor ="let file of images">
+      <ion-thumbnail>
+        <ion-img [src] ="file.data"></ion-img>
+      </ion-thumbnail>
+  <ion-label class ="ion-text-wrap">
+  {{file.name}}
+  </ion-label>
+    </ion-item>
+  </ion-list>
+   
+          <br>
           Nombre: {{ find.nameM }}
           <br>
           Color : {{ find.color }}
@@ -34,9 +40,6 @@
           Dirección:  {{ find.direccion }}
           <br>
           
-          <!--
-            <br>
-          ID: {{ note.id }}-->
         </ion-label>
       </ion-item>
     </ion-list>

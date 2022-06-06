@@ -20,6 +20,8 @@ findpets551  /// buscar findpet550 y reemplazar por findpets551
 imagenes
 npm i @capacitor/camera
 npm install @ionic/pwa-elements
+npm install @capacitor/filesystem
+
 //
 barra de carga
 npm install cordova-plugin-statusbar 
